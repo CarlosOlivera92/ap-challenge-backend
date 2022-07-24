@@ -79,5 +79,6 @@ public class AuthController {
         Optional<Usuario> user = usuarioService.getByEmail(loginUsuario.getEmail());
         JwtDto jwtDto = new JwtDto(jwt,loginUsuario.getEmail(),userDetails.getAuthorities(), user);
         return new ResponseEntity(jwtDto, HttpStatus.OK);
+
     }
 }

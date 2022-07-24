@@ -1,7 +1,7 @@
 package com.portfolio.backend.services;
 
-import com.portfolio.backend.models.User;
 import com.portfolio.backend.repository.UserRepository;
+import com.portfolio.backend.security.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,16 +16,16 @@ public class UserService
     @Autowired
     UserRepository userRepository;
 
-    public List<User> list() {
+    public List<Usuario> list() {
         return userRepository.findAll();
     }
-    public boolean existsById(Long id){
+    public boolean existsById(int id){
         return userRepository.existsById(id);
     }
-    public void delete(Long id){
+    public void delete(int id){
         userRepository.deleteById(id);
     }
-    public Optional<User> getOne(Long id){
+    public Optional<Usuario> getOne(int id){
         return userRepository.findById(id);
     }
 

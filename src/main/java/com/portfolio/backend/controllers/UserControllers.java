@@ -1,8 +1,8 @@
 package com.portfolio.backend.controllers;
 
 import com.portfolio.backend.dto.Mensaje;
-import com.portfolio.backend.models.User;
 import com.portfolio.backend.repository.UserRepository;
+import com.portfolio.backend.security.entity.Usuario;
 import com.portfolio.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,20 +22,20 @@ public class UserControllers {
     UserRepository userRepository;
 
     @GetMapping("/lista")
-    public ResponseEntity<List<User>> list(){
-        List<User> list = userService.list();
+    public ResponseEntity<List<Usuario>> list(){
+        List<Usuario> list = userService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
     @GetMapping("/lista/{id}")
-    public ResponseEntity<List<User>> getUserById(@PathVariable Long id){
+    public ResponseEntity<List<Usuario>> getUserById(@PathVariable int id){
         if(!userService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
-        User producto = userService.getOne(id).get();
+        Usuario producto = userService.getOne(id).get();
         return new ResponseEntity(producto, HttpStatus.OK);
     }
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable("id")Long id){
+    public ResponseEntity<?> delete(@PathVariable("id")int id){
         if(!userService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
         userService.delete(id);
