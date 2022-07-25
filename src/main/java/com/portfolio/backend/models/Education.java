@@ -10,22 +10,23 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "educacion")
+@Table(name = "institutes")
 public class Education implements Serializable {
     @Getter @Setter
-    @Column(name = "id_educacion")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Getter @Setter
-    private String establecimiento;
-    @OneToMany( mappedBy = "education",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private String institute;
+    @OneToMany( mappedBy = "institute",fetch = FetchType.LAZY, cascade = {
+            CascadeType.PERSIST,CascadeType.MERGE
+    })
     private Set<UsuarioEducacion> usuarioEducacion;
     public Education() {
 
     }
     public Education(@NotNull String establecimiento) {
-        this.establecimiento = establecimiento;
+        this.institute = establecimiento;
     }
 }

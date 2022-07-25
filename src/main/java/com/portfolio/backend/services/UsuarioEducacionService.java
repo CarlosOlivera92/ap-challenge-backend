@@ -14,5 +14,5 @@ public interface UsuarioEducacionService {
 
      */
     public abstract Optional<UsuarioEducacion> listBYiD(Long id);
-
+    boolean existsById(Long id);
 }

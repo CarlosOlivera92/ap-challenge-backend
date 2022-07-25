@@ -1,7 +1,8 @@
 package com.portfolio.backend.services;
 
-import com.portfolio.backend.models.UsuarioEducacion;
-import com.portfolio.backend.repository.UsuarioEducationRepository;
+import com.portfolio.backend.models.CompaniesUsuario;
+import com.portfolio.backend.models.StatesTownships;
+import com.portfolio.backend.repository.StatesTownshipsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,22 +10,22 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioEducacionImp implements UsuarioEducacionService {
+public class StatesTownshipsServiceImp implements StatesTownshipsService {
     @Autowired
-    private UsuarioEducationRepository repository;
+    private StatesTownshipsRepository repository;
 
     @Override
-    public UsuarioEducacion añadirActualizarInfo(UsuarioEducacion obj) {
+    public StatesTownships add(StatesTownships obj) {
         return repository.save(obj);
     }
 
     @Override
-    public void deleteUsuarioEducacion(Long id) {
+    public void delete(Long id) {
         repository.deleteById(id);
     }
 
     @Override
-    public List<UsuarioEducacion> listAll() {
+    public List<StatesTownships> listAll() {
         return repository.findAll();
     }
     /*
@@ -36,7 +37,7 @@ public class UsuarioEducacionImp implements UsuarioEducacionService {
      */
 
     @Override
-    public Optional<UsuarioEducacion> listBYiD(Long id) {
+        public Optional<StatesTownships> listByiD(Long id) {
         return repository.findById(id);
     }
 

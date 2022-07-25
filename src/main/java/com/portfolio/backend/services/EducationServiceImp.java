@@ -14,6 +14,11 @@ public class EducationServiceImp implements EducationService {
     private EducationRepository educationRepository;
 
     @Override
+    public Education addItem(Education obj) {
+        return educationRepository.save(obj);
+    }
+
+    @Override
     public List<Education> listEducation() {
         return educationRepository.findAll();
     }

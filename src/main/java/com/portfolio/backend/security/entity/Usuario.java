@@ -1,5 +1,7 @@
 package com.portfolio.backend.security.entity;
 
+import com.portfolio.backend.models.CompaniesUsuario;
+import com.portfolio.backend.models.StatesTownships;
 import com.portfolio.backend.models.UsuarioEducacion;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -38,9 +40,20 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-    private Collection<UsuarioEducacion> usuarioEducacion;
+    @OneToMany(mappedBy = "usuario", cascade = {
+            CascadeType.PERSIST,CascadeType.MERGE
+    },fetch = FetchType.LAZY)
 
+    private Collection<UsuarioEducacion> usuarioEducacion;
+    @OneToMany(mappedBy = "usuario", cascade = {
+            CascadeType.PERSIST,CascadeType.MERGE
+    }, fetch = FetchType.LAZY)
+
+    private Collection<CompaniesUsuario> companiesUsuarios;
+    @OneToMany(mappedBy = "usuario", cascade = {
+            CascadeType.PERSIST,CascadeType.MERGE
+    }, fetch = FetchType.LAZY)
+    private Collection<StatesTownships> statesTownships;
 
     public Usuario() {
     }
