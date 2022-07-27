@@ -1,5 +1,6 @@
 package com.portfolio.backend.security.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portfolio.backend.models.CompaniesUsuario;
 import com.portfolio.backend.models.StatesTownships;
 import com.portfolio.backend.models.UsuarioEducacion;
@@ -9,13 +10,14 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity @EqualsAndHashCode
-public class Usuario {
+public class Usuario implements Serializable {
     @Id @Getter @Setter
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -29,8 +31,8 @@ public class Usuario {
     private double telefono;
     @Getter @Setter @Column(name = "password")
     private String password;
-    @Getter @Setter @Column(name = "birthday")
-    private Date birthday;
+    @Getter @Setter @Column(name = "birthday") @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthday;
     @Getter @Setter @Column(unique = true)
     private String nombreUsuario;
 
@@ -40,16 +42,19 @@ public class Usuario {
     inverseJoinColumns = @JoinColumn(name = "id_rol"))
     private Set<Rol> roles = new HashSet<>();
 
+    @Getter @Setter
     @OneToMany(mappedBy = "usuario", cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
     },fetch = FetchType.LAZY)
-
     private Collection<UsuarioEducacion> usuarioEducacion;
+
+    @Getter @Setter
     @OneToMany(mappedBy = "usuario", cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
     }, fetch = FetchType.LAZY)
-
     private Collection<CompaniesUsuario> companiesUsuarios;
+
+    @Getter @Setter
     @OneToMany(mappedBy = "usuario", cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
     }, fetch = FetchType.LAZY)
@@ -58,7 +63,7 @@ public class Usuario {
     public Usuario() {
     }
 
-    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, Date birthday  , @NotNull String nombreUsuario, @NotNull String email, @NotNull String password ) {
+    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, LocalDate birthday  , @NotNull String nombreUsuario, @NotNull String email, @NotNull String password ) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;

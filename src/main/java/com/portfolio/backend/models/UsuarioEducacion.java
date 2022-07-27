@@ -1,5 +1,6 @@
 package com.portfolio.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.portfolio.backend.security.entity.Usuario;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,10 +19,10 @@ public class UsuarioEducacion implements Serializable {
 
     private String descripcion = "";
 
-    @ManyToOne
+    @ManyToOne @JsonIncludeProperties({"id"})
     @JoinColumn(name = "usuario_id")
     Usuario usuario;
-    @ManyToOne
+    @ManyToOne @JsonIncludeProperties({"id","institute"})
     @JoinColumn(name = "institutes_id")
     Education institute;
 

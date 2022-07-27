@@ -1,5 +1,6 @@
 package com.portfolio.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ public class Companies {
 
     @OneToMany( mappedBy = "company",fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
-    })
+    }) @JsonIgnore
     private Set<CompaniesUsuario> companiesUsuarios;
 
     public Companies() {

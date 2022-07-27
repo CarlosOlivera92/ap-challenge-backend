@@ -1,5 +1,6 @@
 package com.portfolio.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.portfolio.backend.security.entity.Usuario;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class StatesTownships {
     @JoinColumn(name = "township_id")
     Townships township;
     @ManyToOne
-    @JoinColumn(name = "usuario_id")
+    @JoinColumn(name = "usuario_id", nullable = false) @JsonIncludeProperties({"id"})
     Usuario usuario;
     public StatesTownships() {
 

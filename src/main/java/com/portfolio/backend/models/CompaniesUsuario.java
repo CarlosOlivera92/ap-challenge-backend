@@ -1,6 +1,7 @@
 package com.portfolio.backend.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIncludeProperties;
 import com.portfolio.backend.security.entity.Usuario;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,10 +22,10 @@ public class CompaniesUsuario implements Serializable {
     private LocalDate since;
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate until;
-    @ManyToOne
+    @ManyToOne @JsonIncludeProperties({"id","company"})
     @JoinColumn(name = "companies_id")
     Companies company;
-    @ManyToOne
+    @ManyToOne @JsonIncludeProperties({"id"})
     @JoinColumn(name = "usuario_id")
     Usuario usuario;
 

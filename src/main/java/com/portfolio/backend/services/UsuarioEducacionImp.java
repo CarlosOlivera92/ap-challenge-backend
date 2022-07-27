@@ -27,13 +27,6 @@ public class UsuarioEducacionImp implements UsuarioEducacionService {
     public List<UsuarioEducacion> listAll() {
         return repository.findAll();
     }
-    /*
-    @Override
-    public List<CompaniesUsuario> listByName(String filtro) {
-        return repository.listByName(filtro);
-    }
-
-     */
 
     @Override
     public Optional<UsuarioEducacion> listBYiD(Long id) {

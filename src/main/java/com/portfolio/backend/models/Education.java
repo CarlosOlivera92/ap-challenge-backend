@@ -1,5 +1,6 @@
 package com.portfolio.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,7 +22,7 @@ public class Education implements Serializable {
     private String institute;
     @OneToMany( mappedBy = "institute",fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
-    })
+    }) @JsonIgnore
     private Set<UsuarioEducacion> usuarioEducacion;
     public Education() {
 

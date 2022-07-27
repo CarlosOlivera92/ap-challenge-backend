@@ -1,5 +1,6 @@
 package com.portfolio.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,7 +15,7 @@ public class States {
     private String state;
     @OneToMany( mappedBy = "state",fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST,CascadeType.MERGE
-    })
+    }) @JsonIgnore
     private Set<StatesTownships> statesTownship;
 
     public States() {

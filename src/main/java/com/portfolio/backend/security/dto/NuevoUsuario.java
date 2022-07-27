@@ -1,11 +1,12 @@
 package com.portfolio.backend.security.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -23,8 +24,8 @@ public class NuevoUsuario {
     @NotBlank
     private String password;
 
-    @Getter @Setter
-    private Date birthday;
+    @Getter @Setter @JsonFormat(pattern="yyyy-MM-dd")
+    private LocalDate birthday;
     private Set<String> roles = new HashSet<>();
 
     public String getNombre() {
