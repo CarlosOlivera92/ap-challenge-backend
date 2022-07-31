@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/users")
 @CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 
 public class UserControllers {
