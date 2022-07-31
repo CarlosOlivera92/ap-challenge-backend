@@ -12,9 +12,9 @@ public class DatasourceConfig {
     public DataSource datasource() {
         return DataSourceBuilder.create()
                 .driverClassName("com.mysql.cj.jdbc.Driver")
-                .url("jdbc:mysql://localhost:3306/portfoliov3?useSSL=false&serverTimezone=UTC&useLegacyDateTimeCode=false")
-                .username("root")
-                .password("")
+                .url("mysql://ud15hwwwyxcqgjzm:zMfVsiomvCyu959V0f0W@bqkib7hnrvu7ir8slrbc-mysql.services.clever-cloud.com:3306/bqkib7hnrvu7ir8slrbc")
+                .username("zMfVsiomvCyu959V0f0W\n")
+                .password("ud15hwwwyxcqgjzm")
                 .build();
     }
 }
