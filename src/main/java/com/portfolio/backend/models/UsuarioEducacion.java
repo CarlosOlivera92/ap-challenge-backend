@@ -15,8 +15,10 @@ import java.io.Serializable;
 public class UsuarioEducacion implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "titulo", updatable = true)
     private String titulo = " ";
 
+    @Column(name = "descripcion", updatable = true)
     private String descripcion = "";
 
     @ManyToOne @JsonIncludeProperties({"id"})

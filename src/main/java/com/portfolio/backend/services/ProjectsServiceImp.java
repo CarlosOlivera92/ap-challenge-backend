@@ -1,7 +1,7 @@
 package com.portfolio.backend.services;
 
-import com.portfolio.backend.models.CompaniesUsuario;
-import com.portfolio.backend.repository.CompaniesUsuarioRepository;
+import com.portfolio.backend.models.ProjectsModel;
+import com.portfolio.backend.repository.ProjectsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CompaniesUsuarioImp implements CompaniesUsuarioService {
+public class ProjectsServiceImp implements ProjectsService {
     @Autowired
-    private CompaniesUsuarioRepository repository;
+    private ProjectsRepository repository;
 
     @Override
-    public CompaniesUsuario add(CompaniesUsuario obj) {
+    public ProjectsModel add(ProjectsModel obj) {
         return repository.save(obj);
     }
 
@@ -23,13 +23,13 @@ public class CompaniesUsuarioImp implements CompaniesUsuarioService {
         repository.deleteById(id);
     }
     @Override
-    public Optional<CompaniesUsuario> getOne(Long id){
+    public Optional<ProjectsModel> getOne(Long id){
         return repository.findById(id);
     }
 
 
     @Override
-    public List<CompaniesUsuario> listAll() {
+    public List<ProjectsModel> listAll() {
         return repository.findAll();
     }
     /*
@@ -41,7 +41,7 @@ public class CompaniesUsuarioImp implements CompaniesUsuarioService {
      */
 
     @Override
-        public Optional<CompaniesUsuario> listByiD(Long id) {
+    public Optional<ProjectsModel> listByiD(Long id) {
         return repository.findById(id);
     }
 

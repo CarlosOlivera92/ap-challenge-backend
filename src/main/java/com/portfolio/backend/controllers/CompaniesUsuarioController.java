@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/auth/uerscompanies")
 @CrossOrigin(origins = "http://localhost:4200/")
@@ -23,11 +25,33 @@ public class CompaniesUsuarioController {
         CompaniesUsuario item = companiesUsuarioService.add(companiesUsuario);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
+    @GetMapping("/list")
+    @ResponseBody
+    public List<CompaniesUsuario> list(){
+        return companiesUsuarioService.listAll();
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id")Long id){
         if(!companiesUsuarioService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
         companiesUsuarioService.delete(id);
         return new ResponseEntity(new Mensaje("Item eliminado"), HttpStatus.OK);
+    }
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
+        if(!companiesUsuarioService.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        CompaniesUsuario professions = companiesUsuarioService.getOne(id).get();
+        return new ResponseEntity(professions, HttpStatus.OK);
+    }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> update(@PathVariable("id")Long id, @RequestBody CompaniesUsuario companies){
+        CompaniesUsuario userEdu = companiesUsuarioService.listByiD(id).get();
+        userEdu.setPosition(companies.getPosition());
+        userEdu.setDescription(companies.getDescription());
+        userEdu.setCompany(companies.getCompany());
+        userEdu.setUsuario(companies.getUsuario());
+        companiesUsuarioService.add(userEdu);
+        return new ResponseEntity<>(userEdu, HttpStatus.OK);
     }
 }

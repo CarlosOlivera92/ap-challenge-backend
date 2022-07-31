@@ -17,12 +17,28 @@ public class NuevoUsuario {
     private String apellido;
     @Getter @Setter
     private double telefono;
+    @Getter @Setter
+    private String about;
     @NotBlank
     private String nombreUsuario;
     @Email
     private String email;
     @NotBlank
     private String password;
+/*
+    public NuevoUsuario(String nombre, String apellido, double telefono, String about, String nombreUsuario, String email, String password, LocalDate birthday, Set<String> roles) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.about = about;
+        this.telefono = telefono;
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+        this.birthday = birthday;
+        this.roles = roles;
+    }
+
+ */
 
     @Getter @Setter @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate birthday;

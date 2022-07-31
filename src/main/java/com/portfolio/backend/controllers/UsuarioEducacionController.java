@@ -27,6 +27,13 @@ public class UsuarioEducacionController {
     public List<UsuarioEducacion> list(){
         return usuarioEducacionService.listAll();
     }
+    @GetMapping("/list/{id}")
+    public ResponseEntity<List<UsuarioEducacion>> listById(@PathVariable Long id){
+        if(!usuarioEducacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        UsuarioEducacion userEdu = usuarioEducacionService.getOne(id).get();
+        return new ResponseEntity(userEdu, HttpStatus.OK);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id")Long id){
         if(!usuarioEducacionService.existsById(id))
@@ -34,14 +41,21 @@ public class UsuarioEducacionController {
         usuarioEducacionService.deleteUsuarioEducacion(id);
         return new ResponseEntity(new Mensaje("Item eliminado"), HttpStatus.OK);
     }
+    @GetMapping("/detail/{id}")
+    public ResponseEntity<?> getById(@PathVariable("id") Long id){
+        if(!usuarioEducacionService.existsById(id))
+            return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
+        UsuarioEducacion userEdu = usuarioEducacionService.getOne(id).get();
+        return new ResponseEntity(userEdu, HttpStatus.OK);
+    }
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@PathVariable("id")Long id, @RequestBody UsuarioEducacion usuarioEducacion){
-        UsuarioEducacion educacion = usuarioEducacionService.listBYiD(id).get();
-        educacion.setInstitute(educacion.getInstitute());
-        educacion.setTitulo(educacion.getTitulo());
-        educacion.setUsuario(educacion.getUsuario());
-        educacion.setDescripcion(educacion.getDescripcion());
-        usuarioEducacionService.añadirActualizarInfo(educacion);
-        return new ResponseEntity(new Mensaje("Item actualizado"), HttpStatus.OK);
+        UsuarioEducacion userEdu =usuarioEducacionService.listBYiD(id).get();
+        userEdu.setTitulo(usuarioEducacion.getTitulo());
+        userEdu.setDescripcion(usuarioEducacion.getDescripcion());
+        userEdu.setInstitute(usuarioEducacion.getInstitute());
+        userEdu.setUsuario(usuarioEducacion.getUsuario());
+        usuarioEducacionService.añadirActualizarInfo(userEdu);
+        return new ResponseEntity<>(userEdu, HttpStatus.OK);
     }
 }

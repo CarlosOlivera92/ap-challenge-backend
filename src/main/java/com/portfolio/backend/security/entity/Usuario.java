@@ -2,6 +2,7 @@ package com.portfolio.backend.security.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.portfolio.backend.models.CompaniesUsuario;
+import com.portfolio.backend.models.ProjectsModel;
 import com.portfolio.backend.models.StatesTownships;
 import com.portfolio.backend.models.UsuarioEducacion;
 import lombok.EqualsAndHashCode;
@@ -25,6 +26,9 @@ public class Usuario implements Serializable {
     private String nombre;
     @Getter @Setter @Column(name = "apellido")
     private String apellido;
+
+    @Getter @Setter @Column(name ="aboutme")
+    private String about;
     @NotNull @Getter @Setter @Column(name = "email")
     private String email;
     @Getter @Setter @Column(name = "telefono")
@@ -60,14 +64,22 @@ public class Usuario implements Serializable {
     }, fetch = FetchType.LAZY)
     private Collection<StatesTownships> statesTownships;
 
+    @Getter @Setter
+    @OneToMany(mappedBy = "usuario", cascade = {
+            CascadeType.PERSIST,CascadeType.MERGE
+    }, fetch = FetchType.LAZY)
+    private Collection<ProjectsModel> projects;
+
+
     public Usuario() {
     }
 
-    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, LocalDate birthday  , @NotNull String nombreUsuario, @NotNull String email, @NotNull String password ) {
+    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, LocalDate birthday  , @NotNull String nombreUsuario,  @NotNull String about, @NotNull String email, @NotNull String password ) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
+        this.about = about;
         this.email = email;
         this.password = password;
         this.birthday = birthday;

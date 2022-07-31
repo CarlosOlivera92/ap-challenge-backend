@@ -37,4 +37,8 @@ public class UsuarioEducacionImp implements UsuarioEducacionService {
     public boolean existsById(Long id) {
         return repository.existsById(id);
     }
+    public Optional<UsuarioEducacion> getOne(Long id){
+        return repository.findById(id);
+    }
+
 }

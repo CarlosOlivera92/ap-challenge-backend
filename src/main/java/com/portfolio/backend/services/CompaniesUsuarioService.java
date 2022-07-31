@@ -13,6 +13,8 @@ public interface CompaniesUsuarioService {
     public abstract List<CompaniesUsuario> listByName(String filtro);
 
      */
+    Optional<CompaniesUsuario> getOne(Long id);
+
     public abstract Optional<CompaniesUsuario> listByiD(Long id);
     boolean existsById(Long id);
 }
