@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/states-townships")
-@CrossOrigin("https://portfolioapp-a55ab.web.app")
+@CrossOrigin("/**")
 public class StatesTownshipsController {
     @Autowired
     private StatesTownshipsService service;

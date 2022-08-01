@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/institutes")
-@CrossOrigin("https://portfolioapp-a55ab.web.app")
+@CrossOrigin("/**")
 public class InstituteController {
     @Autowired
     private EducationService educationService;
