@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/projects")
-@CrossOrigin(origins = "/**")
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class ProjectsController {
     @Autowired
     private ProjectsService projectsService;

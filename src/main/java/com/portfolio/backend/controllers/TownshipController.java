@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/townships")
-@CrossOrigin("/**")
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class TownshipController {
     @Autowired
     private TownshipService service;

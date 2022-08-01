@@ -14,8 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin("*")
-
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class UserControllers {
     @Autowired
     UserService userService;
