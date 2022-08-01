@@ -9,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(value = "https://portfolioapp-a55ab.web.app/*")
 @RestController
 @RequestMapping("/auth/userinstitutes")
-@CrossOrigin(value = "https://portfolioapp-a55ab.web.app/*")
 public class UsuarioEducacionController {
     @Autowired
     private UsuarioEducacionService usuarioEducacionService;
@@ -28,6 +27,7 @@ public class UsuarioEducacionController {
         return usuarioEducacionService.listAll();
     }
     @GetMapping("/list/{id}")
+    @ResponseBody
     public ResponseEntity<List<UsuarioEducacion>> listById(@PathVariable Long id){
         if(!usuarioEducacionService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
@@ -35,6 +35,7 @@ public class UsuarioEducacionController {
         return new ResponseEntity(userEdu, HttpStatus.OK);
     }
     @DeleteMapping("/delete/{id}")
+    @ResponseBody
     public ResponseEntity<?> delete(@PathVariable("id")Long id){
         if(!usuarioEducacionService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
@@ -42,6 +43,7 @@ public class UsuarioEducacionController {
         return new ResponseEntity(new Mensaje("Item eliminado"), HttpStatus.OK);
     }
     @GetMapping("/detail/{id}")
+    @ResponseBody
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         if(!usuarioEducacionService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
@@ -49,6 +51,7 @@ public class UsuarioEducacionController {
         return new ResponseEntity(userEdu, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
+    @ResponseBody
     public ResponseEntity<?> update(@PathVariable("id")Long id, @RequestBody UsuarioEducacion usuarioEducacion){
         UsuarioEducacion userEdu =usuarioEducacionService.listBYiD(id).get();
         userEdu.setTitulo(usuarioEducacion.getTitulo());

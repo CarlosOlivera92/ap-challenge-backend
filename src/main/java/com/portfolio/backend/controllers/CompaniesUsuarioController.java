@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth/uerscompanies")
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/*")
 public class CompaniesUsuarioController {
     @Autowired
     private CompaniesService companiesService;
@@ -31,6 +31,7 @@ public class CompaniesUsuarioController {
         return companiesUsuarioService.listAll();
     }
     @DeleteMapping("/delete/{id}")
+    @ResponseBody
     public ResponseEntity<?> delete(@PathVariable("id")Long id){
         if(!companiesUsuarioService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
@@ -38,6 +39,7 @@ public class CompaniesUsuarioController {
         return new ResponseEntity(new Mensaje("Item eliminado"), HttpStatus.OK);
     }
     @GetMapping("/detail/{id}")
+    @ResponseBody
     public ResponseEntity<?> getById(@PathVariable("id") Long id){
         if(!companiesUsuarioService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
@@ -45,6 +47,7 @@ public class CompaniesUsuarioController {
         return new ResponseEntity(professions, HttpStatus.OK);
     }
     @PutMapping("/update/{id}")
+    @ResponseBody
     public ResponseEntity<?> update(@PathVariable("id")Long id, @RequestBody CompaniesUsuario companies){
         CompaniesUsuario userEdu = companiesUsuarioService.listByiD(id).get();
         userEdu.setPosition(companies.getPosition());
