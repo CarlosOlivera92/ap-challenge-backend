@@ -27,7 +27,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
+@CrossOrigin(origins = {"https://portfolioapp-a55ab.web.app", "https://pacific-retreat-26374.herokuapp.com/**, https://pacific-retreat-26374.herokuapp.com"} )
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
