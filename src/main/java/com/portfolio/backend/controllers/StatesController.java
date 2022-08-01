@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/states")
-@CrossOrigin
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/")
 public class StatesController {
     @Autowired
     private StateService service;
