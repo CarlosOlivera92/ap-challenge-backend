@@ -27,10 +27,9 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth")
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 public class AuthController {
 
     @Autowired
