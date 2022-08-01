@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/userinstitutes")
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
+@CrossOrigin
 public class UsuarioEducacionController {
     @Autowired
     private UsuarioEducacionService usuarioEducacionService;

@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/companies")
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
+@CrossOrigin
 public class CompanyController {
     @Autowired
     private CompaniesService companiesService;
