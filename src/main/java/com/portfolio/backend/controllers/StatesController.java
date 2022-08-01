@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth/states")
-//@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class StatesController {
     @Autowired
     private StateService service;

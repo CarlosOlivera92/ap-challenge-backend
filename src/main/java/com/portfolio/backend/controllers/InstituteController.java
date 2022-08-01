@@ -8,10 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth/institutes")
-//@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class InstituteController {
     @Autowired
     private EducationService educationService;

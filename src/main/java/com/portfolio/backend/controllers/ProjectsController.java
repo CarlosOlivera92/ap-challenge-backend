@@ -9,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth/projects")
-//@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class ProjectsController {
     @Autowired
     private ProjectsService projectsService;

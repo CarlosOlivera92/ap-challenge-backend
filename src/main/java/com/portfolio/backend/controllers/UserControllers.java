@@ -11,10 +11,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app")
 @RestController
 @RequestMapping("/auth")
-//@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 public class UserControllers {
     @Autowired
     UserService userService;
