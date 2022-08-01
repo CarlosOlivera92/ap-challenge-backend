@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(value = "*")
+
+@CrossOrigin(value = "/**")
 @RestController
 @RequestMapping("/auth/userinstitutes")
 public class UsuarioEducacionController {
