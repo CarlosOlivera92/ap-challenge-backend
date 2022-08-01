@@ -13,18 +13,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @CrossOrigin(origins = {"https://portfolioapp-a55ab.web.app", "https://pacific-retreat-26374.herokuapp.com/**, https://pacific-retreat-26374.herokuapp.com"} )
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/auth/users")
 public class UserControllers {
     @Autowired
     UserService userService;
     UserRepository userRepository;
 
-    @GetMapping("/lista")
+    @GetMapping("/list")
     public ResponseEntity<List<Usuario>> list(){
         List<Usuario> list = userService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
-    @GetMapping("/lista/{id}")
+    @GetMapping("/list/{id}")
     public ResponseEntity<List<Usuario>> getUserById(@PathVariable int id){
         if(!userService.existsById(id))
             return new ResponseEntity(new Mensaje("no existe"), HttpStatus.NOT_FOUND);
