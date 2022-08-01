@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth/uerscompanies")
-@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
+//@CrossOrigin(origins = "https://portfolioapp-a55ab.web.app/portfolio")
 
 public class CompaniesUsuarioController {
     @Autowired
