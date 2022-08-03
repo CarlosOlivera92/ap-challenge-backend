@@ -19,13 +19,20 @@ public class UserService
     public List<Usuario> list() {
         return userRepository.findAll();
     }
-    public boolean existsById(int id){
+    public Optional<Usuario> findById(Long id) {
+        return userRepository.findById(id);
+    }
+    public Usuario save(Usuario usuario){
+        return userRepository.save(usuario);
+    }
+
+    public boolean existsById(Long id){
         return userRepository.existsById(id);
     }
-    public void delete(int id){
+    public void delete(Long id){
         userRepository.deleteById(id);
     }
-    public Optional<Usuario> getOne(int id){
+    public Optional<Usuario> getOne(Long id){
         return userRepository.findById(id);
     }
 
