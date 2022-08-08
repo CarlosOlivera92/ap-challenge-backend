@@ -42,6 +42,16 @@ public class UserControllers {
         Usuario userUpdated = userService.save(usuario);
         return ResponseEntity.ok(userUpdated);
     }
+    @PutMapping("/updateImg/{id}")
+    public ResponseEntity<Usuario> updateProfilePic(@PathVariable("id")Long id,@RequestBody Usuario user){
+        Usuario usuario = userService.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe el usuario con el ID : " + id));
+
+        usuario.setProfileUrl(user.getProfileUrl());
+
+        Usuario userUpdated = userService.save(usuario);
+        return ResponseEntity.ok(userUpdated);
+    }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable("id")Long id){
         if(!userService.existsById(id))

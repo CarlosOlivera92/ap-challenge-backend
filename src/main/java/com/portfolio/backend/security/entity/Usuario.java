@@ -24,6 +24,8 @@ public class Usuario implements Serializable {
     private Long id;
     @Getter @Setter @Column(name ="nombre")
     private String nombre;
+    @Getter @Setter @Column(name ="profileurl")
+    private String profileUrl;
     @Getter @Setter @Column(name = "apellido")
     private String apellido;
 
@@ -74,12 +76,13 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, LocalDate birthday  , @NotNull String nombreUsuario,  @NotNull String about, @NotNull String email, @NotNull String password ) {
+    public Usuario(@NotNull String nombre, @NotNull String apellido, @NotNull double telefono, LocalDate birthday  , @NotNull String nombreUsuario,  @NotNull String about,@NotNull String profilePic, @NotNull String email, @NotNull String password ) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.telefono = telefono;
         this.nombreUsuario = nombreUsuario;
         this.about = about;
+        this.profileUrl = profilePic;
         this.email = email;
         this.password = password;
         this.birthday = birthday;

@@ -19,6 +19,8 @@ public class NuevoUsuario {
     private double telefono;
     @Getter @Setter
     private String about;
+    @Getter @Setter
+    private String profileUrl;
     @NotBlank
     private String nombreUsuario;
     @Email
