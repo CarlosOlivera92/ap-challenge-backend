@@ -27,6 +27,7 @@ import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
+
 @CrossOrigin(origins = {"http://localhost:4200"})
 @RestController
 @RequestMapping("/auth")
@@ -37,8 +38,10 @@ public class AuthController {
 
     @Autowired
     AuthenticationManager authenticationManager;
+
     @Autowired
     UsuarioRepository repository;
+
     @Autowired
     UsuarioService usuarioService;
 
@@ -50,34 +53,41 @@ public class AuthController {
 
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-        if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-            return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
-        Usuario usuario =
-                new Usuario(nuevoUsuario.getNombre(),nuevoUsuario.getApellido(), nuevoUsuario.getTelefono(), nuevoUsuario.getBirthday() ,nuevoUsuario.getNombreUsuario(),nuevoUsuario.getAbout(), nuevoUsuario.getProfileUrl(), nuevoUsuario.getEmail(),
-                        passwordEncoder.encode(nuevoUsuario.getPassword()));
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-        if(nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
-        usuario.setRoles(roles);
-        usuarioService.save(usuario);
-        return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+        try {
+            if(bindingResult.hasErrors())
+                return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+            if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
+                return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
+            Usuario usuario =
+                    new Usuario(nuevoUsuario.getNombre(),nuevoUsuario.getApellido(), nuevoUsuario.getTelefono(), nuevoUsuario.getBirthday() ,nuevoUsuario.getNombreUsuario(),nuevoUsuario.getAbout(), nuevoUsuario.getProfileUrl(), nuevoUsuario.getEmail(),
+                            passwordEncoder.encode(nuevoUsuario.getPassword()));
+            Set<Rol> roles = new HashSet<>();
+            roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
+            if(nuevoUsuario.getRoles().contains("admin"))
+                roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+            usuario.setRoles(roles);
+            usuarioService.save(usuario);
+            return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity(new Mensaje("Error al procesar la solicitud" + " " + e), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
-        if(bindingResult.hasErrors())
-            return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
-        Authentication authentication =
-                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtProvider.generateToken(authentication);
-        UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-        Optional<Usuario> user = usuarioService.getByEmail(loginUsuario.getEmail());
-        JwtDto jwtDto = new JwtDto(jwt,loginUsuario.getEmail(),userDetails.getAuthorities(), user);
-        return new ResponseEntity(jwtDto, HttpStatus.OK);
-
+    public ResponseEntity<?> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
+        try {
+            if(bindingResult.hasErrors())
+                return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
+            Authentication authentication =
+                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            String jwt = jwtProvider.generateToken(authentication);
+            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+            Optional<Usuario> user = usuarioService.getByEmail(loginUsuario.getEmail());
+            JwtDto jwtDto = new JwtDto(jwt,loginUsuario.getEmail(),userDetails.getAuthorities(), user);
+            return new ResponseEntity(jwtDto, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity(new Mensaje("Error al procesar la solicitud" + " " + e), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
