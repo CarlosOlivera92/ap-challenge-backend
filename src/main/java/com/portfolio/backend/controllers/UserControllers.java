@@ -22,6 +22,10 @@ public class UserControllers {
         List<Usuario> list = userService.list();
         return new ResponseEntity(list, HttpStatus.OK);
     }
+    @GetMapping("/ping")
+    public String ping(){
+        return "pong";
+    }
     @GetMapping("/list/{id}")
     public ResponseEntity<List<Usuario>> getUserById(@PathVariable Long id){
         if(!userService.existsById(id))
