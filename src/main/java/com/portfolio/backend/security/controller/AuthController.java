@@ -52,42 +52,44 @@ public class AuthController {
     JwtProvider jwtProvider;
 
     @PostMapping("/nuevo")
-    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult){
+    public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
         try {
-            if(bindingResult.hasErrors())
-                return new ResponseEntity(new Mensaje("campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
-            if(usuarioService.existsByEmail(nuevoUsuario.getEmail()))
-                return new ResponseEntity(new Mensaje("ese email ya existe"), HttpStatus.BAD_REQUEST);
-            Usuario usuario =
-                    new Usuario(nuevoUsuario.getNombre(),nuevoUsuario.getApellido(), nuevoUsuario.getTelefono(), nuevoUsuario.getBirthday() ,nuevoUsuario.getNombreUsuario(),nuevoUsuario.getAbout(), nuevoUsuario.getProfileUrl(), nuevoUsuario.getEmail(),
-                            passwordEncoder.encode(nuevoUsuario.getPassword()));
+            if (bindingResult.hasErrors()) {
+                return new ResponseEntity(new Mensaje("Campos mal puestos o email inválido"), HttpStatus.BAD_REQUEST);
+            }
+            if (usuarioService.existsByEmail(nuevoUsuario.getEmail())) {
+                return new ResponseEntity(new Mensaje("Ese email ya existe"), HttpStatus.BAD_REQUEST);
+            }
+            Usuario usuario = new Usuario(nuevoUsuario.getNombre(), nuevoUsuario.getApellido(), nuevoUsuario.getTelefono(), nuevoUsuario.getBirthday(), nuevoUsuario.getNombreUsuario(), nuevoUsuario.getAbout(), nuevoUsuario.getProfileUrl(), nuevoUsuario.getEmail(), passwordEncoder.encode(nuevoUsuario.getPassword()));
             Set<Rol> roles = new HashSet<>();
-            roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-            if(nuevoUsuario.getRoles().contains("admin"))
-                roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
+            rolService.getByRolNombre(RolNombre.ROLE_USER).ifPresent(roles::add);
+            if (nuevoUsuario.getRoles().contains("admin")) {
+                rolService.getByRolNombre(RolNombre.ROLE_ADMIN).ifPresent(roles::add);
+            }
             usuario.setRoles(roles);
             usuarioService.save(usuario);
-            return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
+            return new ResponseEntity(new Mensaje("Usuario guardado"), HttpStatus.CREATED);
         } catch (Exception e) {
-            return new ResponseEntity(new Mensaje("Error al procesar la solicitud" + " " + e), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Mensaje("Error al procesar la solicitud: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult){
+    public ResponseEntity<?> login(@Valid @RequestBody LoginUsuario loginUsuario, BindingResult bindingResult) {
         try {
-            if(bindingResult.hasErrors())
-                return new ResponseEntity(new Mensaje("campos mal puestos"), HttpStatus.BAD_REQUEST);
-            Authentication authentication =
-                    authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
+            if (bindingResult.hasErrors()) {
+                return new ResponseEntity(new Mensaje("Campos mal puestos"), HttpStatus.BAD_REQUEST);
+            }
+            Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUsuario.getEmail(), loginUsuario.getPassword()));
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtProvider.generateToken(authentication);
-            UserDetails userDetails = (UserDetails)authentication.getPrincipal();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             Optional<Usuario> user = usuarioService.getByEmail(loginUsuario.getEmail());
-            JwtDto jwtDto = new JwtDto(jwt,loginUsuario.getEmail(),userDetails.getAuthorities(), user);
+            JwtDto jwtDto = new JwtDto(jwt, loginUsuario.getEmail(), userDetails.getAuthorities(), user);
             return new ResponseEntity(jwtDto, HttpStatus.OK);
         } catch (Exception e) {
-            return new ResponseEntity(new Mensaje("Error al procesar la solicitud" + " " + e), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(new Mensaje("Error al procesar la solicitud: " + e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 }
