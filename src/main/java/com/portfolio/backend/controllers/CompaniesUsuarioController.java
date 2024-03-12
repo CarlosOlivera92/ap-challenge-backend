@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-@CrossOrigin(origins = {"https://portfolioapp-a55ab.web.app", "https://pacific-retreat-26374.herokuapp.com/**, https://pacific-retreat-26374.herokuapp.com"} )
+@CrossOrigin(origins = {"http://localhost:4200/"} )
 @RestController
 @RequestMapping("/auth/uerscompanies")
 
