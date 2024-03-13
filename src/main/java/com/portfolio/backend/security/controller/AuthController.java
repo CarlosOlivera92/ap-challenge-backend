@@ -28,7 +28,7 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@CrossOrigin(origins = {"http://localhost:4200"})
+@CrossOrigin(origins = {"https://ap-challenge-angular.web.app"})
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
